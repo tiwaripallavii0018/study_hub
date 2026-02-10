@@ -1,10 +1,9 @@
-// Toggle features dropdown
+// Existing code + search enhancement
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdown');
     dropdown.classList.toggle('show');
 }
 
-// Simple login/signin simulation (toggle profile)
 let isLoggedIn = false;
 function login() {
     isLoggedIn = true;
@@ -21,7 +20,6 @@ function signin() {
     alert('Signed in! (Demo)');
 }
 
-// Theme toggle
 function toggleTheme() {
     document.body.classList.toggle('dark');
     document.body.classList.toggle('light');
@@ -29,7 +27,11 @@ function toggleTheme() {
     toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
 }
 
-// Search placeholder (expand later)
 document.getElementById('search').addEventListener('input', function() {
-    console.log('Searching for:', this.value);
+    const query = this.value.toLowerCase();
+    const features = document.querySelectorAll('.dropdown li');
+    features.forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(query) ? 'block' : 'none';
+    });
 });

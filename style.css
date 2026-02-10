@@ -287,3 +287,14 @@ body.dark .stat-card {
 .badge.unlocked {
     opacity: 1;
 }
+/* Existing styles + background updates */
+body.light {
+    background-color: #e0f7fa; /* Bright for light */
+}
+body.dark {
+    background-color: #000; /* Black for dark */
+}
+/* Add animations */
+*{
+    transition: all 0.3s ease;
+}
