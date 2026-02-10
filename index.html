@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - Your Ultimate Study Companion</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.light {
+            background-color: #fff;
+            color: #333;
+        }
+        body.dark {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        /* Navigation bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #ff6b35; /* Orangish color */
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        .features {
+            position: relative;
+            margin-left: 2rem;
+        }
+        .features button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ff8c42;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        .dropdown.show {
+            display: block;
+        }
+        .dropdown ul {
+            list-style: none;
+            padding: 1rem;
+        }
+        .dropdown li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .dropdown li:last-child {
+            border-bottom: none;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar {
+            margin-right: 1rem;
+        }
+        .search-bar input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+        .login-btn, .signin-btn, .profile {
+            margin-left: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #fff;
+            color: #ff6b35;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover, .signin-btn:hover, .profile:hover {
+            background-color: #f0f0f0;
+        }
+        .profile {
+            display: none; /* Hidden by default */
+        }
+        .theme-toggle {
+            margin-left: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Main content */
+        .container {
+            margin-top: 80px; /* Account for fixed nav */
+        }
+        .upper-section {
+            height: 50vh;
+            background-color: #ff6b35; /* Orangish */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        .upper-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .upper-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .cta-btn {
+            padding: 1rem 2rem;
+            background-color: white;
+            color: #ff6b35;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .lower-section {
+            height: 50vh;
+            background-image: url('https://www.shutterstock.com/image-photo/paris-france-october-15-2025-600nw-2690825897.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .nav-left, .nav-right {
+                margin: 0.5rem 0;
+            }
+            .search-bar input {
+                width: 150px;
+            }
+            .upper-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="light">
+    <nav>
+        <div class="nav-left">
+            <div class="logo">StudyHub</div>
+            <div class="features">
+                <button onclick="toggleDropdown()">Features ▼</button>
+                <div class="dropdown" id="dropdown">
+                    <ul>
+                        <li>📊 Progress Dashboard</li>
+                        <li>🎯 Daily Challenge</li>
+                        <li>🧠 Smart Quizzes</li>
+                        <li>🔁 Mistake Revision Mode</li>
+                        <li>📈 Performance Analytics</li>
+                        <li>📚 Downloadable Notes</li>
+                        <li>🧩 Flashcards</li>
+                        <li>🏆 Mock Exam Simulator</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search topics..." id="search">
+            </div>
+            <button class="login-btn" onclick="login()">Login</button>
+            <button class="signin-btn" onclick="signin()">Sign In</button>
+            <div class="profile" id="profile">
+                <span>Welcome, User!</span> <!-- Replace with actual profile info -->
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="upper-section">
+            <h1>Welcome to StudyHub</h1>
+            <p>Master your studies with personalized tools, quizzes, and analytics. Start your journey today!</p>
+            <button class="cta-btn" onclick="alert('Redirect to dashboard')">Get Started</button>
+        </section>
+        <section class="lower-section">
+            <!-- Background image section -->
+        </section>
+    </div>
+
+    <script>
+        // Toggle features dropdown
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Simple login/signin simulation (toggle profile)
+        let isLoggedIn = false;
+        function login() {
+            isLoggedIn = true;
+            document.querySelector('.login-btn').style.display = 'none';
+            document.querySelector('.signin-btn').style.display = 'none';
+            document.getElementById('profile').style.display = 'block';
+            alert('Logged in! (Demo)');
+        }
+        function signin() {
+            isLoggedIn = true;
+            document.querySelector('.login-btn').style.display = 'none';
+            document.querySelector('.signin-btn').style.display = 'none';
+            document.getElementById('profile').style.display = 'block';
+            alert('Signed in! (Demo)');
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            const toggleBtn = document.querySelector('.theme-toggle');
+            toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        }
+
+        // Search placeholder (expand later)
+        document.getElementById('search').addEventListener('input', function() {
+            console.log('Searching for:', this.value);
+        });
+    </script>
+</body>
+</html>

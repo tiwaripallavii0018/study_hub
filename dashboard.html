@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Dashboard - StudyHub</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your main CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js library -->
+    <style>
+        /* Additional styles specific to dashboard */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 100px auto 2rem;
+            padding: 2rem;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        body.dark .dashboard-container {
+            background-color: #333;
+            color: #fff;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body.dark .stat-card {
+            background-color: #444;
+        }
+        .charts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .chart-container {
+            flex: 1;
+            min-width: 300px;
+        }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .badge {
+            padding: 0.5rem 1rem;
+            background-color: #ff6b35;
+            color: white;
+            border-radius: 20px;
+            opacity: 0.5;
+        }
+        .badge.unlocked {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="light">
+    <nav>
+        <!-- Same nav as index.html for consistency -->
+        <div class="nav-left">
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">StudyHub</a></div>
+            <div class="features">
+                <button onclick="toggleDropdown()">Features ▼</button>
+                <div class="dropdown" id="dropdown">
+                    <ul>
+                        <li><a href="dashboard.html">📊 Progress Dashboard</a></li>
+                        <li>🎯 Daily Challenge</li>
+                        <li><a href="quiz.html">🧠 Smart Quizzes</a></li>
+                        <li>🔁 Mistake Revision Mode</li>
+                        <li>📈 Performance Analytics</li>
+                        <li>📚 Downloadable Notes</li>
+                        <li><a href="flashcards.html">🧩 Flashcards</a></li>
+                        <li>🏆 Mock Exam Simulator</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search topics..." id="search">
+            </div>
+            <button class="login-btn" onclick="login()">Login</button>
+            <button class="signin-btn" onclick="signin()">Sign In</button>
+            <div class="profile" id="profile">
+                <span>Welcome, User!</span>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h1>Progress Dashboard</h1>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Quizzes Attempted</h3>
+                <p id="total-quizzes">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Average Score</h3>
+                <p id="avg-score">0%</p>
+            </div>
+            <div class="stat-card">
+                <h3>Weakest Topic</h3>
+                <p id="weakest-topic">N/A</p>
+            </div>
+            <div class="stat-card">
+                <h3>Strongest Topic</h3>
+                <p id="strongest-topic">N/A</p>
+            </div>
+            <div class="stat-card">
+                <h3>Current Streak</h3>
+                <p id="streak">0 days</p>
+            </div>
+            <div class="stat-card">
+                <h3>Flashcards Known</h3>
+                <p id="known-flashcards">0</p>
+            </div>
+        </div>
+        <div class="charts">
+            <div class="chart-container">
+                <canvas id="scoreChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="topicChart"></canvas>
+            </div>
+        </div>
+        <h2>Achievement Badges</h2>
+        <div class="badges">
+            <div class="badge" id="quiz-master">Quiz Master (Score >80% in a quiz)</div>
+            <div class="badge" id="streak-king">Streak King (7-day streak)</div>
+            <div class="badge" id="flashcard-pro">Flashcard Pro (50 known cards)</div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script> <!-- Link to external JS file -->
+</body>
+</html>
